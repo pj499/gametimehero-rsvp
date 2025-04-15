@@ -4,6 +4,8 @@ import { Logger } from "./utils/Logger";
 import { Player } from "./interfaces/Player";
 import { RsvpStatus } from "./interfaces/RsvpEntry";
 import { RsvpForm } from "./components/RsvpForm";
+import { RsvpStats } from "./components/RsvpStats";
+import { ConfirmedList } from "./components/ConfirmedList";
 
 const logger = new Logger();
 const rsvpService = new RsvpService(logger);
@@ -25,23 +27,12 @@ function App() {
           🎟️ RSVP Manager
         </h1>
         <RsvpForm onSubmit={handleRsvp} />
-
-        <div className="bg-white shadow-md rounded p-4 text-sm text-gray-800 space-y-1">
-          <p>📊 <span className="font-semibold">Total RSVPs:</span> {counts.total}</p>
-          <p>✅ <span className="font-semibold">Confirmed:</span> {counts.confirmed}</p>
-          <p>❌ <span className="font-semibold">Declined:</span> {counts.declined}</p>
-        </div>
-
-        <div className="bg-white shadow-md rounded p-4">
-          <h2 className="font-semibold mb-2">✅ Confirmed Attendees</h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-1">
-            {confirmed.length > 0 ? (
-              confirmed.map((p) => <li key={p.id}>{p.name}</li>)
-            ) : (
-              <p className="text-sm text-gray-500">No confirmed RSVPs yet.</p>
-            )}
-          </ul>
-        </div>
+        <RsvpStats
+          total={counts.total}
+          confirmed={counts.confirmed}
+          declined={counts.declined}
+        />
+        <ConfirmedList attendees={confirmed} />
       </div>
     </div>
   );
