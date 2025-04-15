@@ -39,26 +39,35 @@ function App() {
   const counts = rsvpService.getRsvpCounts();
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto space-y-8">
-        <h1 className="text-4xl font-extrabold text-center text-blue-700 flex items-center justify-center gap-3">
-          <span role="img" aria-label="ticket">🎟️</span> RSVP Manager
-        </h1>
+    <div className="min-h-screen bg-slate-100 py-10 px-4 sm:px-6 lg:px-8 text-gray-800">
+      
+  <div className="max-w-7xl mx-auto">
+    <h1 className="text-4xl font-extrabold text-center text-blue-700 flex items-center justify-center gap-3 mb-10">
+   🎟️ RSVP Manager
+    </h1>
+  
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
-        <section className="bg-white p-6 rounded-xl shadow-sm">
-          <RsvpForm onSubmit={handleRsvp} />
-        </section>
+        <div className="space-y-6">
+          <section className="bg-white p-6 rounded-xl shadow-sm">
+            <RsvpForm onSubmit={handleRsvp} />
+          </section>
+          <section className="bg-white p-6 rounded-xl shadow-sm">
+            <AllAttendees entries={allEntries} onStatusChange={handleStatusChange} />
+          </section>
+        </div>
+  
 
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="space-y-6">
           <RsvpStats {...counts} />
-          <ConfirmedList attendees={confirmed} />
-        </section>
-
-        <section className="bg-white p-6 rounded-xl shadow-sm">
-          <AllAttendees entries={allEntries} onStatusChange={handleStatusChange} />
-        </section>
+          <div className="bg-white p-6 rounded-xl shadow-sm">
+            <ConfirmedList attendees={confirmed} />
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+  
   );
 }
 
