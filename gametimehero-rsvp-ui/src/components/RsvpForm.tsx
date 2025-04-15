@@ -15,7 +15,7 @@ export const RsvpForm: React.FC<Props> = ({ onSubmit }) => {
     if (!name.trim()) return;
 
     const newPlayer: Player = {
-      id: Date.now().toString(),
+      id: name.trim().toLowerCase().replace(/\s+/g, "-") + "-" + Date.now(),
       name: name.trim(),
     };
     onSubmit(newPlayer, status);

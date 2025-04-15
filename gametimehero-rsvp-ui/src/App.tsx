@@ -1,42 +1,65 @@
 import React, { useState } from "react";
 import { RsvpService } from "./services/RsvpService";
 import { Logger } from "./utils/Logger";
-import { Player } from "./interfaces/Player";
-import { RsvpStatus } from "./interfaces/RsvpEntry";
 import { RsvpForm } from "./components/RsvpForm";
 import { RsvpStats } from "./components/RsvpStats";
 import { ConfirmedList } from "./components/ConfirmedList";
+import { AllAttendees } from "./components/AllAttendees";
+import { RsvpEntry, RsvpStatus } from "./interfaces/RsvpEntry";
+import { Player } from "./interfaces/Player";
+
+const initialRsvps: RsvpEntry[] = [
+  { player: { id: "1", name: "Alex" }, status: "Yes" },
+  { player: { id: "2", name: "Jordan" }, status: "No" },
+  { player: { id: "3", name: "Riley" }, status: "Maybe" },
+];
 
 const logger = new Logger();
-const rsvpService = new RsvpService(logger);
+const rsvpService = new RsvpService(logger, initialRsvps);
 
 function App() {
-  const [, setForceUpdate] = useState(false);
+  const [, forceUpdate] = useState(false);
+  const updateUI = () => forceUpdate((prev) => !prev);
+
   const handleRsvp = (player: Player, status: RsvpStatus) => {
     rsvpService.addOrUpdateRsvp(player, status);
-    setForceUpdate((prev) => !prev);
+    updateUI();
   };
 
+  const handleStatusChange = (playerId: string, newStatus: RsvpStatus) => {
+    const entry = rsvpService.getAllEntries().find((e) => e.player.id === playerId);
+    if (entry) {
+      rsvpService.addOrUpdateRsvp(entry.player, newStatus);
+      updateUI();
+    }
+  };
+
+  const allEntries = rsvpService.getAllEntries();
   const confirmed = rsvpService.getConfirmedAttendees();
   const counts = rsvpService.getRsvpCounts();
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-lg mx-auto space-y-6">
-        <h1 className="text-3xl font-bold text-center text-blue-800">
-          🎟️ RSVP Manager
+    <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto space-y-8">
+        <h1 className="text-4xl font-extrabold text-center text-blue-700 flex items-center justify-center gap-3">
+          <span role="img" aria-label="ticket">🎟️</span> RSVP Manager
         </h1>
-        <RsvpForm onSubmit={handleRsvp} />
-        <RsvpStats
-          total={counts.total}
-          confirmed={counts.confirmed}
-          declined={counts.declined}
-        />
-        <ConfirmedList attendees={confirmed} />
+
+        <section className="bg-white p-6 rounded-xl shadow-sm">
+          <RsvpForm onSubmit={handleRsvp} />
+        </section>
+
+        <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <RsvpStats {...counts} />
+          <ConfirmedList attendees={confirmed} />
+        </section>
+
+        <section className="bg-white p-6 rounded-xl shadow-sm">
+          <AllAttendees entries={allEntries} onStatusChange={handleStatusChange} />
+        </section>
       </div>
     </div>
   );
 }
 
-
-export default App
+export default App;
