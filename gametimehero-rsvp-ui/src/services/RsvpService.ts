@@ -6,9 +6,15 @@ export class RsvpService {
   private entries: Map<string, RsvpEntry>;
   private logger: Logger;
 
-  constructor(logger: Logger) {
+  constructor(logger: Logger, initialEntries?: RsvpEntry[]) {
     this.entries = new Map();
     this.logger = logger;
+
+    if (initialEntries) {
+      for (const entry of initialEntries) {
+        this.entries.set(entry.player.id, entry);
+      }
+    }
   }
 
   addOrUpdateRsvp(player: Player, status: RsvpStatus): void {
@@ -16,7 +22,7 @@ export class RsvpService {
     this.entries.set(player.id, entry);
     this.logger.log(`RSVP updated: ${player.name} → ${status}`);
   }
-                              
+
   getConfirmedAttendees(): Player[] {
     return Array.from(this.entries.values())
       .filter(entry => entry.status === "Yes")
