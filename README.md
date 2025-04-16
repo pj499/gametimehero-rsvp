@@ -1,31 +1,33 @@
 # 🎟️ Gametime Hero RSVP Manager
 
-A clean, scalable RSVP management interface built with **React**, **TypeScript**, and **Tailwind CSS** — designed for the [Gametime Hero](https://www.gametimehero.com/) coding challenge. This project allows event organizers to track player RSVPs with ease, view attendance stats, and make live updates.
+A clean, scalable RSVP management interface built with **React**, **TypeScript**, and **Tailwind CSS** — designed for the [Gametime Hero](https://www.gametimehero.com/). This feature allows event organizers to track player RSVPs with ease, view attendance stats, and make live updates.
 
+---
+
+## 🌐 Live Demo
+
+Deployed on Vercel:  
+[https://gametimehero.vercel.app](https://gametimehero.vercel.app)
+
+> You can access the full working version here.
 ---
 
 ## 🧩 Features
 
-✅ Add a new player with an RSVP status  
-✅ Update RSVP status directly from the attendee list  
-✅ View confirmed attendees  
-✅ Live attendance statistics (total, confirmed, declined)  
-✅ Clean and testable service architecture using `RsvpService`  
+- Add a new player with an RSVP status  
+- Update RSVP status directly from the attendee list  
+- View confirmed attendees  
+- Live attendance statistics (total, confirmed, declined)  
+- Clean and testable service architecture using `RsvpService`  
 
 ---
 
 ## ✨ Tech Stack
 
-- ⚛️ **React + TypeScript**
-- 🎨 **Tailwind CSS** for styling
-- 🔄 Pure service logic via `RsvpService.ts`
-- 📐 Built with clean architecture principles (SRP, reusable interfaces, dependency injection)
-
----
-
-## 📸 Preview
-
-![image](https://github.com/user-attachments/assets/6817387d-a642-4808-b5cf-a7b771d49da6)
+-  **React + TypeScript**
+-  **Tailwind CSS** for styling
+-  Pure service logic via `RsvpService.ts`
+-  Built with clean architecture principles (SRP, reusable interfaces, dependency injection)
 
 ---
 
