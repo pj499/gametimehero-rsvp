@@ -1,6 +1,6 @@
-# 🎟️ Gametime Hero RSVP Manager
+# 🎟️ RSVP Manager
 
-A clean, scalable RSVP management interface built with **React**, **TypeScript**, and **Tailwind CSS** — designed for the [Gametime Hero](https://www.gametimehero.com/). This feature allows event organizers to track player RSVPs with ease, view attendance stats, and make live updates.
+A clean, scalable RSVP management interface built with **React**, **TypeScript**, and **Tailwind CSS**. This feature allows event organizers to track player RSVPs with ease, view attendance stats, and make live updates.
 
 ---
 
